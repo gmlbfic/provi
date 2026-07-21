@@ -27,14 +27,14 @@
   var submitBtn = form.querySelector("button[type=submit]");
   var submitLabel = submitBtn.querySelector(".btn-label");
 
-  function clearErrors() {
-    form.querySelectorAll(".error-msg").forEach(function (el) { el.textContent = ""; });
-    form.querySelectorAll(".is-invalid").forEach(function (el) { el.classList.remove("is-invalid"); });
+  function clearErrors(formEl) {
+    formEl.querySelectorAll(".error-msg").forEach(function (el) { el.textContent = ""; });
+    formEl.querySelectorAll(".is-invalid").forEach(function (el) { el.classList.remove("is-invalid"); });
   }
 
-  function setError(field, message) {
+  function setError(formEl, field, message) {
     field.classList.add("is-invalid");
-    var msg = form.querySelector('[data-error-for="' + field.name + '"]');
+    var msg = formEl.querySelector('[data-error-for="' + field.name + '"]');
     if (msg) msg.textContent = message;
   }
 
@@ -46,29 +46,29 @@
     var valid = true;
 
     if (!data.nombre.trim() || data.nombre.trim().length < 3) {
-      setError(form.nombre, "Ingresá tu nombre y apellido.");
+      setError(form, form.nombre, "Ingresá tu nombre y apellido.");
       valid = false;
     }
 
     var celularDigits = onlyDigits(data.celular);
     if (celularDigits.length < 8) {
-      setError(form.celular, "Ingresá un celular válido.");
+      setError(form, form.celular, "Ingresá un celular válido.");
       valid = false;
     }
 
     var cedulaDigits = onlyDigits(data.cedula);
     if (cedulaDigits.length < 7 || cedulaDigits.length > 8) {
-      setError(form.cedula, "Ingresá una cédula válida.");
+      setError(form, form.cedula, "Ingresá una cédula válida.");
       valid = false;
     }
 
     if (!data.motivacion.trim()) {
-      setError(form.motivacion, "Contanos qué te motiva.");
+      setError(form, form.motivacion, "Contanos qué te motiva.");
       valid = false;
     }
 
     if (!data.expectativa.trim()) {
-      setError(form.expectativa, "Contanos qué esperás lograr.");
+      setError(form, form.expectativa, "Contanos qué esperás lograr.");
       valid = false;
     }
 
@@ -102,7 +102,7 @@
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
-    clearErrors();
+    clearErrors(form);
 
     var data = {
       nombre: form.nombre.value,
@@ -136,9 +136,74 @@
 
   resetBtn.addEventListener("click", function () {
     form.reset();
-    clearErrors();
+    clearErrors(form);
     form.hidden = false;
     result.hidden = true;
     form.nombre.focus();
+  });
+
+  // No hay backend conectado: valida y muestra confirmación, pero no envía los datos a ningún lado todavía.
+  var contactForm = document.getElementById("contactForm");
+  var contactResult = document.getElementById("contactResult");
+  var contactResetBtn = document.getElementById("contactReset");
+  var contactSubmitBtn = contactForm.querySelector("button[type=submit]");
+  var contactSubmitLabel = contactSubmitBtn.querySelector(".btn-label");
+
+  function validateContact(data) {
+    var valid = true;
+
+    if (!data.nombre.trim() || data.nombre.trim().length < 3) {
+      setError(contactForm, contactForm.contactNombre, "Ingresá tu nombre.");
+      valid = false;
+    }
+
+    if (!data.medio.trim() || data.medio.trim().length < 5) {
+      setError(contactForm, contactForm.contactMedio, "Ingresá un email o celular válido.");
+      valid = false;
+    }
+
+    if (!data.mensaje.trim()) {
+      setError(contactForm, contactForm.contactMensaje, "Contanos tu pregunta.");
+      valid = false;
+    }
+
+    return valid;
+  }
+
+  contactForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    clearErrors(contactForm);
+
+    var data = {
+      nombre: contactForm.contactNombre.value,
+      medio: contactForm.contactMedio.value,
+      mensaje: contactForm.contactMensaje.value
+    };
+
+    if (!validateContact(data)) {
+      var firstInvalid = contactForm.querySelector(".is-invalid");
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    contactSubmitBtn.disabled = true;
+    contactSubmitLabel.textContent = "Enviando...";
+
+    window.setTimeout(function () {
+      contactForm.hidden = true;
+      contactResult.hidden = false;
+      contactResult.focus();
+
+      contactSubmitBtn.disabled = false;
+      contactSubmitLabel.textContent = "Enviar pregunta";
+    }, 500);
+  });
+
+  contactResetBtn.addEventListener("click", function () {
+    contactForm.reset();
+    clearErrors(contactForm);
+    contactForm.hidden = false;
+    contactResult.hidden = true;
+    contactForm.contactNombre.focus();
   });
 })();

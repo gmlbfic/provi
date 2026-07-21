@@ -29,7 +29,9 @@
     <nav class="main-nav" id="mainNav">
       <a href="#inicio">Inicio</a>
       <a href="#historia">Tu historia</a>
+      <a href="#como-funciona">Cómo funciona</a>
       <a href="#sobre">Sobre Providencia</a>
+      <a href="#preguntas">Preguntas</a>
     </nav>
 
     <a href="#historia" class="btn btn-primary btn-small header-cta">Sé parte</a>
@@ -134,6 +136,32 @@
     </div>
   </section>
 
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona" class="how-section">
+    <div class="container">
+      <p class="eyebrow">Cómo funciona</p>
+      <h2>Tres pasos para ser parte</h2>
+
+      <div class="how-grid">
+        <div class="how-step">
+          <span class="how-number how-number-orange">1</span>
+          <h3>Elegí tu número</h3>
+          <p>Cada número cuesta [PRECIO]. Podés comprar la cantidad de números que quieras.</p>
+        </div>
+        <div class="how-step">
+          <span class="how-number how-number-magenta">2</span>
+          <h3>Confirmá tu participación</h3>
+          <p>Pagá por [MEDIOS DE PAGO: transferencia, efectivo, Mercado Pago, etc.] y recibí la confirmación de tu número por [WhatsApp / email].</p>
+        </div>
+        <div class="how-step">
+          <span class="how-number how-number-green">3</span>
+          <h3>Esperá el sorteo</h3>
+          <p>El sorteo se realiza el [FECHA] junto a [Lotería Nacional / Quiniela / mecanismo de sorteo]. Los resultados se publican en [redes sociales / sitio web].</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SOBRE PROVIDENCIA -->
   <section id="sobre" class="about-section">
     <div class="container about-grid">
@@ -174,6 +202,88 @@
           creciendo y construyendo su propio camino.
         </p>
         <a href="#historia" class="btn btn-primary btn-large">Sé parte de esta historia</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREGUNTAS FRECUENTES -->
+  <section id="preguntas" class="faq-section">
+    <div class="container faq-grid">
+      <div class="faq-copy">
+        <p class="eyebrow">Preguntas frecuentes</p>
+        <h2>¿Tenés dudas?</h2>
+        <p class="lead">
+          Te respondemos las consultas más comunes sobre la rifa. Si no encontrás lo que
+          buscás, escribinos más abajo.
+        </p>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>¿Cuánto cuesta cada número?</summary>
+          <p>Cada número cuesta [PRECIO]. [Aclarar si hay descuentos por comprar varios números.]</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cómo pago mi número?</summary>
+          <p>Podés pagar por [transferencia bancaria, efectivo, Mercado Pago, etc.]. [Detallar a quién contactar para coordinar el pago.]</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cuándo es el sorteo?</summary>
+          <p>El sorteo se realiza el [FECHA], junto a [Lotería Nacional / Quiniela / mecanismo de sorteo].</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cómo sé si gané?</summary>
+          <p>[Detallar cómo y dónde se publican los ganadores, y cómo se contacta a la persona ganadora.]</p>
+        </details>
+        <details class="faq-item">
+          <summary>¿A dónde va el dinero recaudado?</summary>
+          <p>Lo recaudado con la Rifa Providencia sostiene los programas educativos del centro durante todo el año.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO DE PREGUNTA -->
+  <section id="contacto" class="contact-section">
+    <div class="container contact-grid">
+      <div class="contact-copy">
+        <p class="eyebrow">¿Seguís con dudas?</p>
+        <h2>Escribinos tu pregunta</h2>
+        <p class="lead">
+          Completá el formulario y te respondemos a la brevedad.
+        </p>
+      </div>
+
+      <div class="contact-form-wrap">
+        <form id="contactForm" class="card contact-form" novalidate>
+          <div class="field">
+            <label for="contactNombre">Nombre</label>
+            <input type="text" id="contactNombre" name="contactNombre" autocomplete="name" required>
+            <span class="error-msg" data-error-for="contactNombre"></span>
+          </div>
+
+          <div class="field">
+            <label for="contactMedio">Email o celular</label>
+            <input type="text" id="contactMedio" name="contactMedio" autocomplete="email" required>
+            <span class="error-msg" data-error-for="contactMedio"></span>
+          </div>
+
+          <div class="field">
+            <label for="contactMensaje">Tu pregunta</label>
+            <textarea id="contactMensaje" name="contactMensaje" rows="3" required></textarea>
+            <span class="error-msg" data-error-for="contactMensaje"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-large btn-block">
+            <span class="btn-label">Enviar pregunta</span>
+          </button>
+        </form>
+
+        <div id="contactResult" class="card contact-result" hidden tabindex="-1">
+          <p class="eyebrow">¡Listo!</p>
+          <p>Recibimos tu pregunta. Te vamos a responder a la brevedad.</p>
+          <button type="button" id="contactReset" class="btn btn-ghost">Enviar otra pregunta</button>
+        </div>
       </div>
     </div>
   </section>

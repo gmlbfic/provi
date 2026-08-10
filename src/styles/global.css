@@ -24,8 +24,8 @@
   --font-sans: 'Archivo', system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-serif: 'Fraunces', Georgia, serif;
 
-  --text-display: clamp(3.2rem, 11vw, 10.5rem);
-  --text-display--line-height: 0.9;
+  --text-display: clamp(3rem, 8.4vw, 8.75rem);
+  --text-display--line-height: 0.92;
   --text-display--letter-spacing: -0.04em;
 
   --text-h1: clamp(2.6rem, 6.5vw, 5.5rem);
@@ -157,9 +157,15 @@ h1 em, h2 em{ font-size:1.08em; }
 .nav-link.is-active:not(.nav-cta){ opacity:1; text-decoration:underline; text-underline-offset:5px; text-decoration-thickness:1.5px; }
 
 /* Scroll cue */
-@keyframes cueMove{ 0%{ transform:translateY(0); opacity:1;} 70%{ transform:translateY(16px); opacity:0;} 100%{ opacity:0;} }
-.scroll-cue-dot{ animation:cueMove 1.8s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce){ .scroll-cue-dot{ animation:none; } }
+@keyframes cueBob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(8px);} }
+.scroll-cue-btn{ animation:cueBob 2.2s ease-in-out infinite; transition:background-color .3s var(--ease-out), transform .3s var(--ease-out); }
+.scroll-cue-btn:hover{ background-color:var(--color-red-deep); }
+@media (prefers-reduced-motion: reduce){ .scroll-cue-btn{ animation:none; } }
+
+/* Hero floating particles */
+@keyframes floaty{ 0%,100%{ transform:translateY(0) rotate(0deg);} 50%{ transform:translateY(-18px) rotate(12deg);} }
+.floaty{ animation:floaty 5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce){ .floaty{ animation:none; } }
 
 /* Clientes tabs */
 .clientes-panel[hidden]{ display:none; }

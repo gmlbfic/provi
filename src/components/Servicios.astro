@@ -4,25 +4,21 @@ import CtaHablemos from './CtaHablemos.astro';
 const groups = [
   {
     verb: 'Pensamos',
-    color: 'text-red',
     open: true,
     items: ['Estrategia de marca', 'Posicionamiento', 'Campañas 360', 'Conceptos creativos', 'Planes de medios', 'Comunicación interna y cultura', 'Propósito, sostenibilidad e impacto'],
   },
   {
     verb: 'Creamos',
-    color: 'text-blue',
     open: false,
     items: ['Experiencias de marca', 'Identidad visual y branding', 'Diseño', 'Contenidos y narrativas', 'Piezas para diferentes medios y formatos'],
   },
   {
     verb: 'Activamos',
-    color: 'text-yellow-deep',
     open: false,
     items: ['Producción audiovisual', 'Producción gráfica', 'Activaciones y stands', 'Eventos y BTL', 'Lanzamientos', 'Alianzas y acciones especiales', 'Cobertura de eventos'],
   },
   {
     verb: 'Optimizamos',
-    color: 'text-violet',
     open: false,
     items: ['Estrategia de contenidos digitales', 'Campañas digitales', 'Gestión de redes sociales', 'Performance y optimización', 'Influencers / creators', 'Analítica y medición', 'Informes y seguimiento'],
   },
@@ -34,10 +30,10 @@ const groups = [
     <h2 class="reveal font-bold text-h2 max-w-[820px] mb-lg">Ofrecemos servicios creativos y estratégicos, <em>los entregamos con profesionalismo y pasión.</em></h2>
 
     <div class="reveal border-t border-black/12">
-      {groups.map((g, i) => (
-        <div class={`servicio-item border-b border-black/12 ${g.open ? 'is-open' : ''}`} data-color={g.color}>
+      {groups.map((g) => (
+        <div class={`servicio-item border-b border-black/12 ${g.open ? 'is-open' : ''}`}>
           <button class="servicio-head w-full flex items-center justify-between py-8 text-left" aria-expanded={g.open ? 'true' : 'false'}>
-            <span class={`font-serif italic font-semibold text-[clamp(2.2rem,6vw,4.5rem)] leading-none ${g.color}`}>{g.verb}</span>
+            <span class="servicio-verb font-serif italic font-semibold text-[clamp(2.2rem,6vw,4.5rem)] leading-none transition-colors duration-300">{g.verb}</span>
             <span class="servicio-toggle relative w-6 h-6 flex-none text-ink" aria-hidden="true"></span>
           </button>
           <div class="servicio-body">
@@ -45,7 +41,7 @@ const groups = [
               <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5 pb-9">
                 {g.items.map(item => (
                   <li class="relative pl-6 py-2 text-[1.02rem]">
-                    <span class={`absolute left-0 top-[18px] w-2 h-2 rounded-full ${g.color.replace('text-', 'bg-')}`}></span>
+                    <span class="servicio-dot absolute left-0 top-[18px] w-2 h-2 rounded-full bg-ink"></span>
                     {item}
                   </li>
                 ))}

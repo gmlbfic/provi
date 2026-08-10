@@ -1,209 +1,179 @@
-(function () {
+(function(){
   "use strict";
 
-  // Reemplazar por el número de WhatsApp real de Providencia (formato: 598XXXXXXXX)
-  var WHATSAPP_NUMBER = "59800000000";
+  /* Header scroll state ------------------------------------------- */
+  var header = document.getElementById('siteHeader');
+  var onScroll = function(){
+    if (window.scrollY > 40) header.classList.add('is-scrolled');
+    else header.classList.remove('is-scrolled');
+  };
+  document.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
 
-  var navToggle = document.getElementById("navToggle");
-  var mainNav = document.getElementById("mainNav");
-
-  navToggle.addEventListener("click", function () {
-    var isOpen = mainNav.classList.toggle("is-open");
-    navToggle.setAttribute("aria-expanded", String(isOpen));
+  /* Mobile nav ------------------------------------------------------ */
+  var navToggle = document.getElementById('navToggle');
+  var mainNav = document.getElementById('mainNav');
+  function closeNav(){
+    mainNav.classList.remove('is-open');
+    navToggle.classList.remove('is-active');
+    navToggle.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-locked');
+  }
+  navToggle.addEventListener('click', function(){
+    var isOpen = mainNav.classList.toggle('is-open');
+    navToggle.classList.toggle('is-active', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    document.body.classList.toggle('nav-locked', isOpen);
+  });
+  mainNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeNav);
   });
 
-  mainNav.querySelectorAll("a").forEach(function (link) {
-    link.addEventListener("click", function () {
-      mainNav.classList.remove("is-open");
-      navToggle.setAttribute("aria-expanded", "false");
+  /* Scroll reveal ----------------------------------------------------- */
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function(el){ el.classList.add('is-visible'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold:.15, rootMargin:'0px 0px -60px 0px' });
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  /* Servicios accordion ------------------------------------------------ */
+  document.querySelectorAll('.servicio-item').forEach(function(item){
+    var head = item.querySelector('.servicio-head');
+    head.addEventListener('click', function(){
+      var isOpen = item.classList.contains('is-open');
+      item.parentElement.querySelectorAll('.servicio-item').forEach(function(other){
+        other.classList.remove('is-open');
+        other.querySelector('.servicio-head').setAttribute('aria-expanded','false');
+      });
+      if (!isOpen){
+        item.classList.add('is-open');
+        head.setAttribute('aria-expanded','true');
+      }
     });
   });
 
-  var form = document.getElementById("storyForm");
-  var result = document.getElementById("storyResult");
-  var storyText = document.getElementById("storyText");
-  var whatsappCta = document.getElementById("whatsappCta");
-  var resetBtn = document.getElementById("storyReset");
-  var submitBtn = form.querySelector("button[type=submit]");
-  var submitLabel = submitBtn.querySelector(".btn-label");
-
-  function clearErrors(formEl) {
-    formEl.querySelectorAll(".error-msg").forEach(function (el) { el.textContent = ""; });
-    formEl.querySelectorAll(".is-invalid").forEach(function (el) { el.classList.remove("is-invalid"); });
-  }
-
-  function setError(formEl, field, message) {
-    field.classList.add("is-invalid");
-    var msg = formEl.querySelector('[data-error-for="' + field.name + '"]');
-    if (msg) msg.textContent = message;
-  }
-
-  function onlyDigits(value) {
-    return (value || "").replace(/\D/g, "");
-  }
-
-  function validate(data) {
-    var valid = true;
-
-    if (!data.nombre.trim() || data.nombre.trim().length < 3) {
-      setError(form, form.nombre, "Ingresá tu nombre y apellido.");
-      valid = false;
-    }
-
-    var celularDigits = onlyDigits(data.celular);
-    if (celularDigits.length < 8) {
-      setError(form, form.celular, "Ingresá un celular válido.");
-      valid = false;
-    }
-
-    var cedulaDigits = onlyDigits(data.cedula);
-    if (cedulaDigits.length < 7 || cedulaDigits.length > 8) {
-      setError(form, form.cedula, "Ingresá una cédula válida.");
-      valid = false;
-    }
-
-    if (!data.motivacion.trim()) {
-      setError(form, form.motivacion, "Contanos qué te motiva.");
-      valid = false;
-    }
-
-    if (!data.expectativa.trim()) {
-      setError(form, form.expectativa, "Contanos qué esperás lograr.");
-      valid = false;
-    }
-
-    return valid;
-  }
-
-  function firstName(fullName) {
-    return fullName.trim().split(/\s+/)[0];
-  }
-
-  function buildStory(data) {
-    var name = firstName(data.nombre);
-    return (
-      "Querido/a " + name + ":\n\n" +
-      "Hay historias que empiezan en una casa de Casabó, en 1994, cuando un grupo de " +
-      "familias y voluntarios decidió no mirar para el costado.\n\n" +
-      "Hoy esa historia te suma un capítulo: dijiste que te motiva colaborar porque " +
-      "“" + data.motivacion.trim() + "”, y que esperás " +
-      "“" + data.expectativa.trim() + "”.\n\n" +
-      "Con tu número, un niño o joven de Providencia tiene una nueva oportunidad de " +
-      "seguir estudiando, jugar y construir su propio camino.\n\n" +
-      "Esta historia recién empieza. Y ahora, " + name + ", también es tuya."
-    );
-  }
-
-  function buildWhatsappUrl(data) {
-    var message = "Hola! Soy " + data.nombre.trim() +
-      " y quiero ser parte de la Rifa Providencia.";
-    return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
-  }
-
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    clearErrors(form);
-
-    var data = {
-      nombre: form.nombre.value,
-      celular: form.celular.value,
-      cedula: form.cedula.value,
-      motivacion: form.motivacion.value,
-      expectativa: form.expectativa.value
-    };
-
-    if (!validate(data)) {
-      var firstInvalid = form.querySelector(".is-invalid");
-      if (firstInvalid) firstInvalid.focus();
-      return;
-    }
-
-    submitBtn.disabled = true;
-    submitLabel.textContent = "Escribiendo tu historia...";
-
-    window.setTimeout(function () {
-      storyText.textContent = buildStory(data);
-      whatsappCta.href = buildWhatsappUrl(data);
-
-      form.hidden = true;
-      result.hidden = false;
-      result.focus();
-
-      submitBtn.disabled = false;
-      submitLabel.textContent = "Crear mi historia";
-    }, 700);
+  /* Clientes tabs -------------------------------------------------------- */
+  document.querySelectorAll('.clientes-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.clientes-tab').forEach(function(t){
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected','false');
+      });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected','true');
+      var target = tab.getAttribute('data-target');
+      document.querySelectorAll('.clientes-panel').forEach(function(panel){
+        var match = panel.id === target;
+        panel.classList.toggle('is-active', match);
+        panel.hidden = !match;
+      });
+    });
   });
 
-  resetBtn.addEventListener("click", function () {
-    form.reset();
-    clearErrors(form);
-    form.hidden = false;
-    result.hidden = true;
-    form.nombre.focus();
-  });
-
-  // No hay backend conectado: valida y muestra confirmación, pero no envía los datos a ningún lado todavía.
-  var contactForm = document.getElementById("contactForm");
-  var contactResult = document.getElementById("contactResult");
-  var contactResetBtn = document.getElementById("contactReset");
-  var contactSubmitBtn = contactForm.querySelector("button[type=submit]");
-  var contactSubmitLabel = contactSubmitBtn.querySelector(".btn-label");
-
-  function validateContact(data) {
-    var valid = true;
-
-    if (!data.nombre.trim() || data.nombre.trim().length < 3) {
-      setError(contactForm, contactForm.contactNombre, "Ingresá tu nombre.");
-      valid = false;
+  /* Casos: modal ----------------------------------------------------------- */
+  var casos = {
+    'caso-anii': {
+      img:'assets/img/alva/cases/anii.jpg',
+      categoria:'Estrategia & campaña institucional',
+      nombre:'Promover la innovación',
+      cliente:'ANII — Agencia Nacional de Investigación e Innovación',
+      desc:'Trabajamos junto a ANII en el desarrollo de una estrategia de comunicación orientada a promover la innovación, especialmente en el ámbito empresarial, y a fortalecer la difusión de sus instrumentos de apoyo. El proyecto implicó comunicar una oferta diversa de herramientas y programas a públicos heterogéneos, incluyendo empresas de distintos sectores y niveles de desarrollo, tanto en Montevideo como en el interior del país. A partir de este marco, diseñamos una estrategia de comunicación y campaña que permitió traducir conceptos vinculados a innovación en mensajes claros y relevantes.',
+      tags:['Campaña institucional','Alcance nacional']
+    },
+    'caso-correo': {
+      img:'assets/img/alva/cases/correo.jpg',
+      categoria:'Diagnóstico & plataforma de marca',
+      nombre:'Una campaña institucional pensada para evolucionar',
+      cliente:'Correo Uruguayo',
+      desc:'Trabajamos junto a Correo Uruguayo en un proceso de diagnóstico y desarrollo de su estrategia de comunicación, en un contexto de varios años sin comunicación institucional sostenida. Realizamos entrevistas y un trabajo de investigación con distintas áreas para relevar percepciones, necesidades y oportunidades de mejora. A partir de este diagnóstico, definimos lineamientos estratégicos y un concepto de comunicación que dio origen a una campaña institucional, concebida como plataforma para la evolución de la marca en el tiempo.',
+      tags:['Diagnóstico institucional','Radio','Audiovisual']
+    },
+    'caso-heritage': {
+      img:'assets/img/alva/cases/heritage.jpg',
+      categoria:'Campañas institucionales y comerciales',
+      nombre:'Comunicación integral de marca y producto',
+      cliente:'Banque Heritage',
+      desc:'Desarrollamos la comunicación institucional y comercial del Banque Heritage, con un abordaje integral: desde campañas masivas hasta los materiales de producto y las comunicaciones a clientes. Acompañamos al banco en la construcción de su identidad de marca corporativa, manualizando la marca principal y desarrollando la identidad de sus productos y programas, junto a la estrategia de medios masivos y presencia en eventos.',
+      tags:['Campañas institucionales y comerciales','Campañas multimedios']
+    },
+    'caso-carve': {
+      img:'assets/img/alva/cases/carve.jpg',
+      categoria:'Campaña multimedios · Alcance nacional',
+      nombre:'Noticias que llegan a tiempo',
+      cliente:'Carve 850',
+      desc:'Desarrollamos junto a Carve una campaña de sensibilización sobre violencia de género. Nos anticipamos a las noticias antes de que ocurran: creamos una serie de piezas en radio y redes que presentaban situaciones de violencia como “noticias del futuro”, visibilizando sus primeras manifestaciones y formas de denuncia. La campaña buscó generar conciencia y promover la acción temprana, amplificando el impacto del mensaje y cuestionando la naturalización de estas situaciones.',
+      tags:['Alcance nacional','Campaña multimedios','Audiovisual']
+    },
+    'caso-elsie': {
+      img:'assets/img/alva/cases/elsie.jpg',
+      categoria:'Estrategia de sensibilización',
+      nombre:'Historias de Paz',
+      cliente:'Ministerio de Defensa · Proyecto Elsie',
+      desc:'Bajo el marco del Proyecto Elsie, una iniciativa que busca fortalecer el rol de las mujeres en las operaciones de las Fuerzas Armadas, lanzamos el libro “Historias de Paz”. Reúne 6 relatos breves escritos por integrantes de las Fuerzas Armadas que participaron en Misiones de Paz de la ONU. A través de testimonios personales comparten experiencias vividas en lugares como el Congo, Haití y Colombia, resaltando la entrega, el compromiso con la paz, el trabajo en equipo y el impacto emocional de estar lejos del hogar cumpliendo una misión humanitaria.',
+      tags:['Pioneras en plasmar historias nunca reconocidas','Llegada a escuelas a nivel nacional','Audiovisual']
+    },
+    'caso-farmashop': {
+      img:'assets/img/alva/cases/farmashop.jpg',
+      categoria:'Planificación & campaña de movilidad sostenible',
+      nombre:'Delivery más verde',
+      cliente:'Farmashop',
+      desc:'Desarrollamos la comunicación del delivery sostenible de Farmashop, posicionándolo como un diferencial de marca e integrándolo al programa Más Verde. La estrategia se implementó en redes, punto de venta, impresos y prensa, sensibilizando sobre movilidad sostenible sin perder el detalle técnico.',
+      tags:['Sensibilización sin perder lo técnico','Adaptado a todos los medios propios']
     }
+  };
 
-    if (!data.medio.trim() || data.medio.trim().length < 5) {
-      setError(contactForm, contactForm.contactMedio, "Ingresá un email o celular válido.");
-      valid = false;
-    }
+  var overlay = document.getElementById('modalOverlay');
+  var modalImg = document.getElementById('modalImg');
+  var modalCategoria = document.getElementById('modalCategoria');
+  var modalTitle = document.getElementById('modalTitle');
+  var modalCliente = document.getElementById('modalCliente');
+  var modalDesc = document.getElementById('modalDesc');
+  var modalTags = document.getElementById('modalTags');
+  var lastFocused = null;
 
-    if (!data.mensaje.trim()) {
-      setError(contactForm, contactForm.contactMensaje, "Contanos tu pregunta.");
-      valid = false;
-    }
-
-    return valid;
+  function openModal(key){
+    var data = casos[key];
+    if (!data) return;
+    modalImg.src = data.img;
+    modalImg.alt = data.nombre;
+    modalCategoria.textContent = data.categoria;
+    modalTitle.textContent = data.nombre;
+    modalCliente.textContent = data.cliente;
+    modalDesc.textContent = data.desc;
+    modalTags.innerHTML = '';
+    data.tags.forEach(function(tag){
+      var li = document.createElement('li');
+      li.textContent = tag;
+      modalTags.appendChild(li);
+    });
+    lastFocused = document.activeElement;
+    overlay.classList.add('is-open');
+    document.body.classList.add('nav-locked');
+    document.getElementById('modalClose').focus();
+  }
+  function closeModal(){
+    overlay.classList.remove('is-open');
+    document.body.classList.remove('nav-locked');
+    if (lastFocused) lastFocused.focus();
   }
 
-  contactForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-    clearErrors(contactForm);
-
-    var data = {
-      nombre: contactForm.contactNombre.value,
-      medio: contactForm.contactMedio.value,
-      mensaje: contactForm.contactMensaje.value
-    };
-
-    if (!validateContact(data)) {
-      var firstInvalid = contactForm.querySelector(".is-invalid");
-      if (firstInvalid) firstInvalid.focus();
-      return;
-    }
-
-    contactSubmitBtn.disabled = true;
-    contactSubmitLabel.textContent = "Enviando...";
-
-    window.setTimeout(function () {
-      contactForm.hidden = true;
-      contactResult.hidden = false;
-      contactResult.focus();
-
-      contactSubmitBtn.disabled = false;
-      contactSubmitLabel.textContent = "Enviar pregunta";
-    }, 500);
+  document.querySelectorAll('[data-modal]').forEach(function(card){
+    card.addEventListener('click', function(){ openModal(card.getAttribute('data-modal')); });
+  });
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
   });
 
-  contactResetBtn.addEventListener("click", function () {
-    contactForm.reset();
-    clearErrors(contactForm);
-    contactForm.hidden = false;
-    contactResult.hidden = true;
-    contactForm.contactNombre.focus();
-  });
 })();

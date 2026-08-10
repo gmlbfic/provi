@@ -1,0 +1,34 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'Alva — Ideas que nos mueven',
+  description = 'Alva es una agencia de comunicación y publicidad. Unimos estrategia y creatividad para que las cosas pasen.',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="es-UY">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/img/alva/cases/elsie.jpg" />
+  <link rel="icon" href="/img/alva/alva-logo.png" type="image/png" />
+  <link rel="preload" href="/fonts/archivo-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/fraunces-italic-variable.woff2" as="font" type="font/woff2" crossorigin />
+  <noscript><style>.reveal,.reveal-draw path{opacity:1!important;transform:none!important;stroke-dashoffset:0!important;}</style></noscript>
+</head>
+<body class="bg-paper text-[#17171a] font-sans">
+  <a class="fixed -left-full top-0 z-[999] bg-ink text-white px-4 py-3 rounded-br-lg focus:left-0" href="#main">Saltar al contenido</a>
+  <slot />
+  <script src="../scripts/main.js"></script>
+</body>
+</html>

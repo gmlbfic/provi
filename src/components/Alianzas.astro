@@ -1,0 +1,31 @@
+---
+import CtaHablemos from './CtaHablemos.astro';
+
+const grupo = [
+  { name: 'alva', tag: 'Comunicación', copy: 'Una agencia de comunicación y publicidad independiente, innovadora y responsable.' },
+  { name: 'ReAcción', tag: 'Ingeniería de triple impacto', copy: 'Impulsa el cambio cultural de las personas y organizaciones a través de la ingeniería ambiental y la comunicación.' },
+  { name: 'Empathy', tag: 'Inclusión y diversidad', copy: 'Una consultora para lograr los cambios culturales necesarios. Diversidad, género y generaciones como miradas integrales.' },
+];
+---
+<section class="py-2xl bg-ink text-paper">
+  <div class="mx-auto max-w-[1240px] px-6">
+    <p class="reveal font-bold text-dark-muted max-w-[680px] leading-relaxed">Formamos parte de un grupo de empresas que trabajan juntas por un futuro más brillante, a través del cambio cultural y la comunicación.</p>
+
+    <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-px bg-white/14 rounded-md overflow-hidden mt-10">
+      {grupo.map(g => (
+        <div class="bg-ink-soft p-8">
+          <h3 class="font-serif italic font-semibold text-2xl mb-2">{g.name}</h3>
+          <p class="text-[.75rem] font-bold uppercase tracking-[0.08em] text-yellow mb-3.5">{g.tag}</p>
+          <p class="text-dark-muted text-[.95rem]">{g.copy}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="reveal mt-[4.5rem] text-center">
+      <p class="font-bold text-eyebrow uppercase text-dark-muted mb-6">Somos parte de</p>
+      <img src="/img/alva/clientes/redes.jpg" alt="Redes y alianzas de las que Alva forma parte: Pacto Global Red Uruguay, ganarganar, IAB Uruguay, El Círculo, AUDAP y ATI — Unión de Agencias de Triple Impacto." loading="lazy" width="1200" height="341" class="max-w-[560px] mx-auto opacity-90" />
+    </div>
+
+    <CtaHablemos variant="dark" align="left" />
+  </div>
+</section>

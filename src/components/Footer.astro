@@ -1,0 +1,23 @@
+---
+const links = [
+  { href: '#mirada', label: 'Mirada' },
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#experiencia', label: 'Experiencia' },
+  { href: '#equipo', label: 'Equipo' },
+  { href: '#clientes', label: 'Clientes' },
+  { href: '#contacto', label: 'Contacto' },
+];
+---
+<footer class="bg-ink text-paper py-11">
+  <div class="mx-auto max-w-[1240px] px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <a href="#alva" aria-label="Alva — inicio">
+      <img src="/img/alva/alva-logo.png" alt="Alva" width="96" height="37" class="h-7 w-auto rounded" />
+    </a>
+    <nav class="flex flex-wrap gap-5.5" aria-label="Navegación de pie de página">
+      {links.map(l => (
+        <a href={l.href} class="text-[.88rem] text-dark-muted hover:text-white transition-colors duration-300">{l.label}</a>
+      ))}
+    </nav>
+    <a class="font-bold text-[.92rem]" href="mailto:hola@alva.com.uy">hola@alva.com.uy</a>
+  </div>
+</footer>

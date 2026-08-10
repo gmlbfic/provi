@@ -1,0 +1,30 @@
+---
+const links = [
+  { href: '#alva', label: 'Alva' },
+  { href: '#mirada', label: 'Mirada' },
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#experiencia', label: 'Experiencia' },
+  { href: '#equipo', label: 'Equipo' },
+  { href: '#clientes', label: 'Clientes' },
+];
+---
+<header class="site-header fixed inset-x-0 top-0 z-[200] py-3.5 transition-[padding] duration-300" id="siteHeader">
+  <div class="mx-auto max-w-[1240px] px-6 flex items-center justify-between gap-6">
+    <a href="#alva" class="shrink-0" aria-label="Alva — inicio">
+      <img src="/img/alva/alva-logo.png" alt="Alva" width="120" height="46" class="h-8 w-auto rounded-lg shadow-sm" />
+    </a>
+
+    <nav class="main-nav fixed inset-y-0 right-0 left-auto w-[min(320px,80vw)] h-screen bg-ink flex-col items-start gap-6 pt-24 px-8 pb-8 translate-x-full md:static md:h-auto md:w-auto md:flex md:flex-row md:items-center md:gap-8 md:translate-x-0 md:bg-transparent md:px-0 md:pt-0" id="mainNav" aria-label="Navegación principal">
+      {links.map(l => (
+        <a href={l.href} class="nav-link text-base md:text-sm font-semibold text-white md:opacity-85 hover:opacity-100 transition-opacity">{l.label}</a>
+      ))}
+      <a href="#contacto" class="nav-link rounded-full bg-red px-5 py-2.5 text-base md:text-sm font-bold text-white! opacity-100">Hablemos</a>
+    </nav>
+
+    <button class="nav-toggle relative z-[210] flex md:hidden flex-col justify-center gap-[5px] w-9 h-9" id="navToggle" aria-expanded="false" aria-controls="mainNav" aria-label="Abrir menú">
+      <span class="h-0.5 w-full bg-white rounded-full"></span>
+      <span class="h-0.5 w-full bg-white rounded-full"></span>
+      <span class="h-0.5 w-full bg-white rounded-full"></span>
+    </button>
+  </div>
+</header>

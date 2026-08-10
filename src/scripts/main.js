@@ -92,12 +92,12 @@
   document.querySelectorAll(".clientes-tab").forEach(function (tab) {
     tab.addEventListener("click", function () {
       document.querySelectorAll(".clientes-tab").forEach(function (t) {
-        t.classList.remove("is-active", "bg-ink", "text-white");
-        t.classList.add("bg-paper", "text-muted");
+        t.classList.remove("is-active", "bg-red", "text-white");
+        t.classList.add("border", "border-white/20", "text-dark-muted");
         t.setAttribute("aria-selected", "false");
       });
-      tab.classList.add("is-active", "bg-ink", "text-white");
-      tab.classList.remove("bg-paper", "text-muted");
+      tab.classList.add("is-active", "bg-red", "text-white");
+      tab.classList.remove("border", "border-white/20", "text-dark-muted");
       tab.setAttribute("aria-selected", "true");
       var target = tab.getAttribute("data-target");
       document.querySelectorAll(".clientes-panel").forEach(function (panel) {

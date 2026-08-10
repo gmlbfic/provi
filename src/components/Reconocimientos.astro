@@ -1,5 +1,4 @@
 ---
-import CtaHablemos from './CtaHablemos.astro';
 const premios = [
   { title: 'Agencia más efectiva', copy: 'en Cambio Positivo y Bien Social.' },
   { title: 'Agencia más premiada en desarrollo sostenible', copy: 'Mejor idea del país en Desarrollo Sostenible.' },
@@ -8,20 +7,18 @@ const premios = [
   { title: 'Mejor idea de Salud Uruguay', copy: 'Trabajo reconocido de salud y wellness en 2025 y 2026.' },
 ];
 ---
-<section class="py-xl bg-paper-dim">
+<section class="py-xl bg-ink-soft text-paper">
   <div class="mx-auto max-w-[1240px] px-6">
-    <p class="reveal font-bold text-eyebrow uppercase text-muted mb-5">Algunos reconocimientos</p>
-    <p class="reveal max-w-[640px] text-muted mt-1.5">Trabajamos para crear campañas inteligentes, eficientes y que obtengan buenos resultados. Los premios no son un objetivo, pero si los conseguimos, los disfrutamos junto a los clientes.</p>
+    <p class="reveal font-bold text-eyebrow uppercase text-dark-muted mb-5">Algunos reconocimientos</p>
+    <p class="reveal max-w-[640px] text-dark-muted mt-1.5">Trabajamos para crear campañas inteligentes, eficientes y que obtengan buenos resultados. Los premios no son un objetivo, pero si los conseguimos, los disfrutamos junto a los clientes.</p>
 
     <div class="reveal grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-12">
       {premios.map(p => (
         <div>
           <span class="block w-2.5 h-2.5 rounded-full bg-yellow mb-3.5" aria-hidden="true"></span>
-          <p class="text-[.92rem] leading-relaxed"><strong class="font-bold">{p.title}</strong><br />{p.copy}</p>
+          <p class="text-[.92rem] leading-relaxed"><strong class="font-bold">{p.title}</strong><br /><span class="text-dark-muted">{p.copy}</span></p>
         </div>
       ))}
     </div>
-
-    <CtaHablemos variant="light" align="left" class="mt-lg" />
   </div>
 </section>

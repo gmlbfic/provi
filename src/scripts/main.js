@@ -50,6 +50,28 @@
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
+  /* Active nav link on scroll ------------------------------------------ */
+  var navLinks = Array.prototype.slice.call(mainNav.querySelectorAll(".nav-link[href^='#']"));
+  var navSections = navLinks
+    .map(function (a) { return document.querySelector(a.getAttribute("href")); })
+    .filter(Boolean);
+  if (navSections.length && "IntersectionObserver" in window) {
+    var setActive = function (id) {
+      navLinks.forEach(function (a) {
+        a.classList.toggle("is-active", a.getAttribute("href") === "#" + id);
+      });
+    };
+    var sectionIO = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    navSections.forEach(function (el) { sectionIO.observe(el); });
+  }
+
   /* Servicios accordion ------------------------------------------------ */
   document.querySelectorAll(".servicio-item").forEach(function (item) {
     var head = item.querySelector(".servicio-head");
@@ -88,7 +110,7 @@
   /* Casos: modal ----------------------------------------------------------- */
   var casos = {
     "caso-anii": {
-      img: "/img/alva/cases/anii.jpg",
+      img: "/img/alva/cases/anii.webp",
       categoria: "Estrategia & campaña institucional",
       nombre: "Promover la innovación",
       cliente: "ANII — Agencia Nacional de Investigación e Innovación",
@@ -96,7 +118,7 @@
       tags: ["Campaña institucional", "Alcance nacional"],
     },
     "caso-correo": {
-      img: "/img/alva/cases/correo.jpg",
+      img: "/img/alva/cases/correo.webp",
       categoria: "Diagnóstico & plataforma de marca",
       nombre: "Una campaña institucional pensada para evolucionar",
       cliente: "Correo Uruguayo",
@@ -104,7 +126,7 @@
       tags: ["Diagnóstico institucional", "Radio", "Audiovisual"],
     },
     "caso-heritage": {
-      img: "/img/alva/cases/heritage.jpg",
+      img: "/img/alva/cases/heritage.webp",
       categoria: "Campañas institucionales y comerciales",
       nombre: "Comunicación integral de marca y producto",
       cliente: "Banque Heritage",
@@ -112,7 +134,7 @@
       tags: ["Campañas institucionales y comerciales", "Campañas multimedios"],
     },
     "caso-carve": {
-      img: "/img/alva/cases/carve.jpg",
+      img: "/img/alva/cases/carve.webp",
       categoria: "Campaña multimedios · Alcance nacional",
       nombre: "Noticias que llegan a tiempo",
       cliente: "Carve 850",
@@ -120,7 +142,7 @@
       tags: ["Alcance nacional", "Campaña multimedios", "Audiovisual"],
     },
     "caso-elsie": {
-      img: "/img/alva/cases/elsie.jpg",
+      img: "/img/alva/cases/elsie.webp",
       categoria: "Estrategia de sensibilización",
       nombre: "Historias de Paz",
       cliente: "Ministerio de Defensa · Proyecto Elsie",
@@ -128,7 +150,7 @@
       tags: ["Pioneras en plasmar historias nunca reconocidas", "Llegada a escuelas a nivel nacional", "Audiovisual"],
     },
     "caso-farmashop": {
-      img: "/img/alva/cases/farmashop.jpg",
+      img: "/img/alva/cases/farmashop.webp",
       categoria: "Planificación & campaña de movilidad sostenible",
       nombre: "Delivery más verde",
       cliente: "Farmashop",

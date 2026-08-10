@@ -1,5 +1,6 @@
 ---
 import CtaHablemos from './CtaHablemos.astro';
+import LoopThread from './LoopThread.astro';
 
 const team = [
   { img: 'ariceta', name: 'Mag. Fernanda Ariceta', rol: 'Dirección general y Dirección de Estrategia', anos: '+23 años de experiencia' },
@@ -12,8 +13,9 @@ const team = [
   { img: 'shaw', name: 'Moira Shaw', rol: 'Community Manager', anos: '+20 años de experiencia' },
 ];
 ---
-<section id="equipo" class="py-2xl bg-paper">
-  <div class="mx-auto max-w-[1240px] px-6">
+<section id="equipo" class="relative overflow-hidden py-2xl bg-paper">
+  <LoopThread class="right-[-70px] top-0 w-[220px] h-[520px] opacity-[0.09]" />
+  <div class="relative mx-auto max-w-[1240px] px-6">
     <p class="reveal font-bold text-eyebrow uppercase text-muted mb-5">Equipo</p>
     <h2 class="reveal font-bold text-h2 mb-6">Hacemos que las cosas <em>pasen.</em></h2>
     <p class="reveal max-w-[680px] text-muted text-[1.05rem]">

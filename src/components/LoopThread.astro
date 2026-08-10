@@ -1,0 +1,20 @@
+---
+interface Props {
+  /** Tailwind position/size classes for the wrapping element. */
+  class?: string;
+  flip?: boolean;
+  color?: string;
+}
+const { class: cls = '', flip = false, color = '#E5411F' } = Astro.props;
+---
+<div class={`pointer-events-none absolute ${cls}`} aria-hidden="true">
+  <svg viewBox="0 0 320 640" preserveAspectRatio="xMidYMid meet" class={`w-full h-full ${flip ? 'scale-x-[-1]' : ''}`}>
+    <g fill="none" stroke={color} stroke-width="7" stroke-linecap="round">
+      <path d="M20 40 C -10 10, 40 -10, 55 25 C 68 55, 100 65, 130 40 S 190 15, 210 45"/>
+      <path d="M0 130 C -30 160, -30 210, 5 220 C 40 230, 50 180, 25 160 C 0 140, -20 170, -40 210"/>
+      <path d="M60 260 C 20 275, 10 320, 45 335 C 80 350, 100 300, 70 285 C 100 270, 130 285, 145 320"/>
+      <path d="M140 380 C 110 400, 110 445, 150 450 C 190 455, 195 405, 160 400 C 195 400, 210 420, 205 455"/>
+      <path d="M20 500 C -10 520, -10 560, 25 570 C 60 580, 90 555, 105 585 C 60 570, 40 600, 65 630"/>
+    </g>
+  </svg>
+</div>

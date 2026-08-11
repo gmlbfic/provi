@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import { team } from '../data/site';
+import { teamMembers } from '../data/team';
+---
+
+<section id="equipo" class="bg-paper py-20 md:py-28">
+  <div class="container-alva">
+    <div class="fade-up mb-16 grid grid-cols-1 gap-8 md:mb-24 md:grid-cols-12 md:gap-8">
+      <h2 class="font-display text-4xl font-medium leading-[1.02] tracking-tightest md:col-span-7 md:text-6xl">
+        {team.heading}
+      </h2>
+      <div class="md:col-span-5">
+        <p class="font-serif text-lg italic leading-relaxed text-ink/80 md:text-xl">
+          {team.intro}
+        </p>
+        <p class="mt-5 font-display text-sm leading-relaxed text-ink/60 md:text-base">
+          {team.description}
+        </p>
+      </div>
+    </div>
+
+    <ul class="border-t border-ink/10">
+      {teamMembers.map((member, i) => {
+        const reversed = i % 2 === 1;
+        return (
+          <li class={`fade-up flex flex-col gap-6 border-b border-ink/10 py-8 md:flex-row md:items-center md:gap-10 md:py-10 ${reversed ? 'md:flex-row-reverse' : ''}`}>
+            <div class="h-28 w-28 flex-shrink-0 overflow-hidden bg-ink/5 sm:h-36 sm:w-36">
+              <Image
+                src={member.photo}
+                alt={`${member.name} — ${member.role}`}
+                width={288}
+                height={288}
+                loading="lazy"
+                class="h-full w-full object-cover grayscale transition-transform duration-700 ease-alva hover:scale-105"
+              />
+            </div>
+            <div class={`flex-1 ${reversed ? 'md:text-right' : ''}`}>
+              <span class="font-serif text-sm italic text-gold">0{i + 1}</span>
+              <h3 class="mt-2 font-display text-2xl font-medium tracking-tightest md:text-3xl">
+                {member.prefix ? `${member.prefix} ` : ''}{member.name}
+              </h3>
+              <p class="mt-1 font-display text-base text-ink/70 md:text-lg">{member.role}</p>
+              <p class="mt-1 font-display text-sm text-ink/45">{member.experience}</p>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>

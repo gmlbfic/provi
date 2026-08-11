@@ -1,0 +1,31 @@
+---
+import { belongsSection } from '../data/site';
+import { belongs, getBelongLogo } from '../data/belongs';
+---
+
+<section id="pertenencias" class="border-t border-ink/10 bg-paper py-14 md:py-16">
+  <div class="container-alva">
+    <div class="fade-up flex flex-col gap-8 md:flex-row md:items-center md:gap-14">
+      <p class="font-display text-xs uppercase tracking-[0.16em] text-ink/40 md:w-48 md:flex-shrink-0">
+        {belongsSection.heading}
+      </p>
+      <ul class="flex flex-wrap items-center gap-x-10 gap-y-6">
+        {belongs.map((item) => {
+          const logo = getBelongLogo(item.slug, 'black');
+          return (
+            <li class="flex items-center">
+              {logo && (
+                <img
+                  src={logo.src}
+                  alt={item.name}
+                  loading="lazy"
+                  class="h-6 w-auto max-w-[120px] object-contain opacity-60 grayscale transition-opacity duration-300 hover:opacity-100 md:h-7"
+                />
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </div>
+</section>

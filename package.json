@@ -1,0 +1,21 @@
+{
+  "name": "alva-institutional",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.2.1",
+    "@astrojs/tailwind": "^5.1.2",
+    "@fontsource/fraunces": "^5.1.0",
+    "@fontsource/space-grotesk": "^5.1.0",
+    "astro": "^4.16.10",
+    "tailwindcss": "^3.4.14"
+  }
+}

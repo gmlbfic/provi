@@ -1,0 +1,33 @@
+---
+import { contact, siteMeta } from '../data/site';
+---
+
+<section id="contacto" class="relative overflow-hidden bg-ink py-28 text-paper md:py-40">
+  <div
+    class="pointer-events-none absolute inset-x-0 bottom-[-6%] select-none whitespace-nowrap text-right font-display font-bold uppercase leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.06)]"
+    style="font-size: clamp(6rem, 16vw, 14rem);"
+    aria-hidden="true"
+  >
+    Hablemos&nbsp;Hablemos
+  </div>
+
+  <div class="container-alva relative z-10">
+    <p class="fade-up eyebrow mb-8">Contacto</p>
+
+    <h2 class="fade-up max-w-3xl font-display text-clamp-h2 font-medium leading-[0.98] tracking-tightest">
+      {contact.heading}
+    </h2>
+
+    <a
+      href={contact.mailto}
+      class="fade-up group mt-12 inline-flex items-baseline gap-4 border-b-2 border-gold pb-2 font-serif text-4xl italic text-gold transition-colors duration-300 hover:text-paper md:text-6xl"
+    >
+      {contact.cta}
+      <span class="font-display text-2xl not-italic transition-transform duration-300 ease-alva group-hover:translate-x-2 md:text-4xl" aria-hidden="true">→</span>
+    </a>
+
+    <p class="fade-up mt-8 font-display text-sm text-paper/50 md:text-base">
+      {siteMeta.email}
+    </p>
+  </div>
+</section>

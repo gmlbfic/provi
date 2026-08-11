@@ -1,0 +1,30 @@
+---
+import { experience } from '../data/site';
+const [first, ...rest] = experience.points;
+---
+
+<section id="capacidades" class="border-b border-ink/10 bg-paper py-20 md:py-28">
+  <div class="container-alva">
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-6">
+      <div class="fade-up lg:col-span-4">
+        <p class="eyebrow mb-4">{experience.heading}</p>
+        <p class="font-display text-5xl font-medium leading-none tracking-tightest md:text-7xl">
+          {first.figure}
+          <span class="block font-serif text-2xl italic font-normal text-ink/60 mt-2 md:text-3xl">{first.label}</span>
+        </p>
+        <p class="mt-6 max-w-xs font-display text-base leading-relaxed text-ink/70">{first.text}</p>
+      </div>
+
+      <div class="lg:col-span-8">
+        <ul class="grid grid-cols-1 divide-y divide-ink/10 border-t border-ink/10 sm:grid-cols-3 sm:divide-y-0 sm:divide-x sm:border-t-0">
+          {rest.map((point) => (
+            <li class="fade-up py-8 first:pt-0 sm:py-0 sm:px-8 sm:first:pl-0 sm:last:pr-0">
+              <span class="font-serif text-sm italic text-gold">{point.figure}</span>
+              <p class="mt-4 font-display text-lg leading-snug md:text-xl">{point.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

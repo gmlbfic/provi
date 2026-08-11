@@ -1,0 +1,23 @@
+---
+import { whyAlva } from '../data/site';
+---
+
+<section id="por-que-alva" class="bg-paper py-20 md:py-28">
+  <div class="container-alva">
+    <p class="fade-up eyebrow mb-14 md:mb-20">{whyAlva.heading}</p>
+
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8">
+      {whyAlva.items.map((item, i) => (
+        <div class="fade-up">
+          <span class="font-serif text-lg italic text-gold">0{i + 1}</span>
+          <h3 class="mt-4 font-display text-2xl font-medium leading-tight tracking-tightest md:text-3xl">
+            {item.name}
+          </h3>
+          <p class="mt-4 max-w-xs font-display text-base leading-relaxed text-ink/70">
+            {item.text}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

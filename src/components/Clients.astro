@@ -1,0 +1,49 @@
+---
+import {
+  privateClients,
+  publicClients,
+  getClientLogo,
+  MAX_PER_CATEGORY,
+} from '../data/clients';
+
+const privateActive = privateClients.filter((c) => c.active).slice(0, MAX_PER_CATEGORY);
+const publicActive = publicClients.filter((c) => c.active).slice(0, MAX_PER_CATEGORY);
+
+const groups = [
+  { title: 'Marcas, empresas privadas y organizaciones', list: privateActive },
+  { title: 'Organismos e instituciones públicas', list: publicActive },
+];
+---
+
+<section id="clientes" class="bg-paper py-20 md:py-28">
+  <div class="container-alva">
+    <p class="fade-up eyebrow mb-14 md:mb-20">Clientes</p>
+
+    <div class="space-y-16 md:space-y-20">
+      {groups.map((group) => (
+        <div class="fade-up">
+          <h3 class="mb-8 max-w-sm font-display text-lg font-medium leading-snug text-ink/80 md:mb-10 md:text-xl">
+            {group.title}
+          </h3>
+          <ul class="grid grid-cols-2 gap-px border border-ink/10 bg-ink/10 sm:grid-cols-3 lg:grid-cols-5">
+            {group.list.map((client) => {
+              const logo = getClientLogo(client.slug, 'black');
+              return (
+                <li class="flex aspect-[3/2] items-center justify-center bg-paper p-6 sm:p-8">
+                  {logo && (
+                    <img
+                      src={logo.src}
+                      alt={client.name}
+                      loading="lazy"
+                      class="max-h-8 w-auto max-w-full object-contain opacity-80 grayscale transition-opacity duration-300 hover:opacity-100 sm:max-h-9"
+                    />
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

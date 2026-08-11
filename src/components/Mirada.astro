@@ -1,0 +1,26 @@
+---
+import { mirada } from '../data/site';
+---
+
+<section id="mirada" class="bg-ink py-20 text-paper md:py-28">
+  <div class="container-alva">
+    <div class="fade-up mb-14 max-w-xl md:mb-20">
+      <p class="eyebrow mb-4">{mirada.heading}</p>
+      <p class="font-display text-2xl leading-snug text-paper/80 md:text-3xl">{mirada.intro}</p>
+    </div>
+
+    <ul class="divide-y divide-paper/15 border-y border-paper/15">
+      {mirada.items.map((item, i) => (
+        <li class="fade-up group grid grid-cols-1 items-baseline gap-2 py-8 transition-colors duration-500 ease-alva hover:bg-paper/[0.03] md:grid-cols-12 md:gap-6 md:py-10">
+          <span class="font-serif text-base italic text-gold md:col-span-1">0{i + 1}</span>
+          <h3 class="font-display text-3xl font-medium leading-none tracking-tightest md:col-span-5 md:text-5xl">
+            {item.name}
+          </h3>
+          <p class="max-w-sm font-display text-base text-paper/65 md:col-span-6 md:text-right md:text-lg">
+            {item.text}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

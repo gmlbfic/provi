@@ -1,0 +1,92 @@
+---
+import { nav, siteMeta } from '../data/site';
+import alvaWordmarkBlack from '../assets/logos/alva-wordmark-black.png';
+---
+
+<header class="fixed inset-x-0 top-0 z-50 border-b border-ink/10 bg-paper">
+  <div class="container-alva flex h-16 items-center justify-between md:h-20">
+    <a href="#alva" class="flex items-center gap-2" aria-label={`${siteMeta.fullName} — inicio`}>
+      <img src={alvaWordmarkBlack.src} alt="Alva" class="h-6 w-auto md:h-7" width="140" height="60" />
+    </a>
+
+    <nav class="hidden items-center gap-7 lg:flex" aria-label="Navegación principal">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class="link-underline font-display text-[13px] uppercase tracking-[0.14em] text-ink/80 transition-colors hover:text-ink"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden lg:block">
+      <a href="#contacto" class="btn-hablemos">Hablemos</a>
+    </div>
+
+    <button
+      id="nav-toggle"
+      type="button"
+      class="flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
+      aria-controls="mobile-nav"
+      aria-expanded="false"
+      aria-label="Abrir menú"
+    >
+      <span class="block h-px w-6 bg-ink transition-transform duration-300" data-bar="1"></span>
+      <span class="block h-px w-6 bg-ink transition-opacity duration-300" data-bar="2"></span>
+      <span class="block h-px w-6 bg-ink transition-transform duration-300" data-bar="3"></span>
+    </button>
+  </div>
+
+  <div
+    id="mobile-nav"
+    class="fixed inset-0 top-16 z-40 hidden flex-col justify-between bg-ink px-6 pb-10 pt-8 text-paper lg:hidden"
+  >
+    <nav class="flex flex-col gap-1" aria-label="Navegación móvil">
+      {nav.map((item, i) => (
+        <a
+          href={item.href}
+          class="mobile-link border-b border-paper/10 py-4 font-display text-2xl tracking-tight"
+          style={`transition-delay: ${i * 40}ms`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <a href="#contacto" class="btn-hablemos mt-8 w-fit border-paper text-paper hover:text-ink">Hablemos</a>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const panel = document.getElementById('mobile-nav');
+  if (toggle && panel) {
+    const bars = toggle.querySelectorAll('[data-bar]');
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      panel.classList.toggle('hidden', !open);
+      panel.classList.toggle('flex', open);
+      document.body.classList.toggle('overflow-hidden', open);
+      if (bars[0]) (bars[0] as HTMLElement).style.transform = open ? 'translateY(6px) rotate(45deg)' : '';
+      if (bars[1]) (bars[1] as HTMLElement).style.opacity = open ? '0' : '1';
+      if (bars[2]) (bars[2] as HTMLElement).style.transform = open ? 'translateY(-6px) rotate(-45deg)' : '';
+    };
+
+    toggle.addEventListener('click', () => {
+      const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      setOpen(!isOpen);
+    });
+
+    panel.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>

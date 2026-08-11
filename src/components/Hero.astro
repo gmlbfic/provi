@@ -1,0 +1,32 @@
+---
+import { hero } from '../data/site';
+---
+
+<section id="alva" class="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-ink pt-16 text-paper md:pt-20">
+  <div
+    class="pointer-events-none absolute inset-x-0 top-[8%] select-none whitespace-nowrap font-display font-bold uppercase leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.08)]"
+    style="font-size: clamp(6rem, 18vw, 16rem);"
+    aria-hidden="true"
+  >
+    Alva&nbsp;Alva&nbsp;Alva&nbsp;Alva
+  </div>
+
+  <div class="container-alva relative z-10">
+    <p class="fade-up eyebrow mb-6 md:mb-10">{hero.kicker}</p>
+
+    <h1 class="fade-up max-w-5xl font-display text-clamp-hero font-medium leading-[0.98] tracking-tightest">
+      Hacemos cosas <em class="font-serif italic text-gold">distintas</em> porque vemos las cosas <em class="font-serif italic text-gold">distinto</em>.
+    </h1>
+
+    <div class="fade-up mt-10 max-w-md md:mt-14">
+      <p class="rule pt-6 font-display text-base leading-relaxed text-paper/75 md:text-lg">
+        {hero.sub}
+      </p>
+    </div>
+  </div>
+
+  <div class="fade-up container-alva relative z-10 mt-16 flex items-center gap-3 pb-10 text-paper/50 md:mt-24" aria-hidden="true">
+    <span class="h-px w-10 bg-paper/30"></span>
+    <span class="font-display text-xs uppercase tracking-[0.2em]">Scroll</span>
+  </div>
+</section>

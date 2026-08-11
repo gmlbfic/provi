@@ -1,0 +1,41 @@
+---
+import { projectsSection } from '../data/site';
+const placeholders = Array.from({ length: projectsSection.placeholderCount });
+---
+
+<section id="experiencia-proyectos" class="bg-paper py-20 md:py-28">
+  <div class="container-alva">
+    <div class="fade-up mb-12 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between">
+      <p class="eyebrow">{projectsSection.heading}</p>
+      <p class="max-w-md font-display text-sm leading-relaxed text-ink/60 md:text-base">
+        {projectsSection.intro}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-px bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
+      {placeholders.map((_, i) => (
+        <article class="fade-up group relative flex aspect-[4/5] flex-col justify-between bg-paper p-6 transition-colors duration-500 ease-alva hover:bg-ink/[0.03] sm:p-7">
+          <div
+            class="absolute inset-6 sm:inset-7 -z-10 opacity-[0.06]"
+            style="background-image: repeating-linear-gradient(135deg, currentColor 0, currentColor 1px, transparent 1px, transparent 14px);"
+            aria-hidden="true"
+          ></div>
+
+          <div class="flex items-start justify-between">
+            <span class="font-serif text-sm italic text-gold">0{i + 1}</span>
+            <span class="font-display text-[11px] uppercase tracking-[0.16em] text-ink/40">Próximamente</span>
+          </div>
+
+          <div>
+            <p class="font-display text-lg font-medium leading-snug text-ink/50 md:text-xl">
+              Caso en preparación
+            </p>
+            <p class="mt-2 font-display text-xs uppercase tracking-[0.14em] text-ink/35">
+              Categoría — · Cliente —
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

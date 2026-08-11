@@ -11,6 +11,18 @@ export default {
           soft: '#D9BF8E',
           dim: '#8A7042',
         },
+        red: {
+          DEFAULT: '#DE4A2A',
+        },
+        pink: {
+          DEFAULT: '#E17BAE',
+        },
+        violet: {
+          DEFAULT: '#6C4CE0',
+        },
+        green: {
+          DEFAULT: '#3FAE55',
+        },
       },
       fontFamily: {
         display: ['"Onest"', 'sans-serif'],

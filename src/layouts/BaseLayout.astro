@@ -13,6 +13,24 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: siteMeta.fullName,
+  alternateName: siteMeta.name,
+  url: siteMeta.url,
+  logo: new URL('/icon-512.png', Astro.site).toString(),
+  image: new URL('/og-image.png', Astro.site).toString(),
+  description: siteMeta.description,
+  email: siteMeta.email,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: siteMeta.locality,
+    addressCountry: siteMeta.countryCode,
+  },
+  areaServed: siteMeta.country,
+};
 ---
 
 <!doctype html>
@@ -46,6 +64,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#0A0A0A" />
+
+    <!-- Geo / local -->
+    <meta name="geo.placename" content={`${siteMeta.locality}, ${siteMeta.country}`} />
+    <meta name="geo.region" content={`${siteMeta.countryCode}-MO`} />
+    <meta name="ICBM" content="-34.9011, -56.1645" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
 
     <meta name="generator" content={Astro.generator} />
   </head>
@@ -84,7 +109,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     background: #c6a15b;
     color: #0a0a0a;
     padding: 0.75rem 1.25rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Onest', sans-serif;
     font-weight: 600;
     text-decoration: none;
   }

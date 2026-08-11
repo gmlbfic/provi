@@ -19,6 +19,7 @@ const year = new Date().getFullYear();
 
     <div class="flex flex-col gap-1 font-display text-xs text-paper/45 md:items-end">
       <a href={`mailto:${siteMeta.email}`} class="link-underline text-paper/70 hover:text-paper">{siteMeta.email}</a>
+      <p>{siteMeta.locality}, {siteMeta.country}</p>
       <p>© {year} {siteMeta.fullName}</p>
     </div>
   </div>

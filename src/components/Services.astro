@@ -4,12 +4,12 @@ import { services } from '../data/site';
 
 <section id="servicios" class="bg-ink py-20 text-paper md:py-28">
   <div class="container-alva">
-    <p class="fade-up eyebrow mb-14 md:mb-16">{services.heading}</p>
+    <p class="fade-up eyebrow mb-14 text-green md:mb-16">{services.heading}</p>
 
     <div class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
       {services.groups.map((group) => (
-        <div class="fade-up border-t border-paper/20 pt-5">
-          <h3 class="font-display text-xl font-medium tracking-tightest md:text-2xl">
+        <div class="fade-up border-t border-green/40 pt-5">
+          <h3 class="font-display text-xl font-medium tracking-tightest text-green md:text-2xl">
             {group.name}
           </h3>
           <ul class="mt-5 space-y-2.5">

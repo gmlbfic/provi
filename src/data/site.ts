@@ -10,6 +10,9 @@ export const siteMeta = {
     'Alva es una agencia de comunicación y publicidad. Unimos estrategia y creatividad para que las cosas pasen: campañas de sensibilización, cambio cultural y comunicación institucional para instituciones públicas y empresas privadas.',
   email: 'hola@alva.com.uy',
   url: 'https://www.alva.com.uy',
+  locality: 'Montevideo',
+  country: 'Uruguay',
+  countryCode: 'UY',
 };
 
 export const nav = [

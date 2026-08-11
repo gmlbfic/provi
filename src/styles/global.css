@@ -68,7 +68,7 @@
   }
 
   .eyebrow {
-    @apply font-display text-xs md:text-sm uppercase tracking-[0.2em] text-gold;
+    @apply font-display text-xs md:text-sm uppercase tracking-[0.2em];
   }
 
   .rule {

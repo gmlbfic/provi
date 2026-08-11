@@ -40,9 +40,9 @@
   --text-h3--line-height: 1.1;
   --text-h3--letter-spacing: -0.01em;
 
-  --text-eyebrow: 0.8rem;
+  --text-eyebrow: 0.68rem;
   --text-eyebrow--line-height: 1.2;
-  --text-eyebrow--letter-spacing: 0.16em;
+  --text-eyebrow--letter-spacing: 0.2em;
 
   /* Spacing rhythm — one scale reused for every section's breathing room. */
   --spacing-xs: 1rem;
@@ -173,6 +173,28 @@ h1 em, h2 em{ font-size:1.08em; }
 /* Clientes: growing typographic frame */
 .client-chip{ transition:background-color .3s var(--ease-out), color .3s var(--ease-out); }
 .client-chip:hover{ background-color:var(--color-red); color:var(--color-white); }
+
+/* Technical grid backdrop — a quiet nod to blueprint/drafting linework */
+.bg-grid-technical{
+  background-image:
+    linear-gradient(rgba(245,244,241,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,244,241,.05) 1px, transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:linear-gradient(to bottom, black, transparent 92%);
+  mask-image:linear-gradient(to bottom, black, transparent 92%);
+}
+
+/* Footer watermark */
+.footer-watermark{
+  font-size:clamp(5.5rem, 20vw, 15rem);
+  letter-spacing:-0.04em;
+  margin:0 0 -0.14em;
+  color:rgba(245,244,241,.04);
+  -webkit-text-stroke:1.5px rgba(245,244,241,.28);
+}
+@supports not (-webkit-text-stroke: 1px black){
+  .footer-watermark{ -webkit-text-stroke:0; color:rgba(245,244,241,.1); }
+}
 
 /* Modal */
 .modal-overlay{ opacity:0; pointer-events:none; transition:opacity .3s var(--ease-out); }

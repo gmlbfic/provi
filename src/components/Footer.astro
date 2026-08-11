@@ -7,8 +7,8 @@ const links = [
   { href: '#contacto', label: 'Contacto' },
 ];
 ---
-<footer class="bg-ink text-paper py-11">
-  <div class="mx-auto max-w-[1240px] px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<footer class="bg-ink text-paper pt-11 overflow-hidden">
+  <div class="mx-auto max-w-[1240px] px-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 pb-11">
     <a href="#alva" aria-label="Alva — inicio">
       <img src="/img/alva/alva-logo.png" alt="Alva" width="96" height="37" class="h-7 w-auto rounded" />
     </a>
@@ -19,4 +19,5 @@ const links = [
     </nav>
     <a class="font-bold text-[.92rem]" href="mailto:hola@alva.com.uy">hola@alva.com.uy</a>
   </div>
+  <p class="footer-watermark select-none pointer-events-none leading-none font-extrabold text-center whitespace-nowrap" aria-hidden="true">alva</p>
 </footer>

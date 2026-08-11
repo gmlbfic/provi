@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { nav, siteMeta, socials } from '../data/site';
+import { nav, siteMeta, socials, feedbackForm } from '../data/site';
 import alvaIconWhite from '../assets/logos/alva-icon-white.png';
 
 const year = new Date().getFullYear();
@@ -45,6 +45,14 @@ const icons: Record<(typeof socials)[number]['icon'], string> = {
     <div class="flex flex-col gap-1 font-display text-xs text-paper/45 md:items-end">
       <a href={`mailto:${siteMeta.email}`} class="link-underline text-paper/70 hover:text-paper">{siteMeta.email}</a>
       <p>{siteMeta.locality}, {siteMeta.country}</p>
+      <a
+        href={feedbackForm.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link-underline text-paper/60 hover:text-paper"
+      >
+        {feedbackForm.label}
+      </a>
       <p>© {year} {siteMeta.fullName}</p>
     </div>
   </div>

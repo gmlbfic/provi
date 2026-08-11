@@ -21,6 +21,11 @@ export const socials = [
   { label: 'Cómo llegar', href: 'https://maps.app.goo.gl/XViATwjrgytNvF6V6', icon: 'pin' },
 ] as const;
 
+export const feedbackForm = {
+  label: 'Quejas y sugerencias',
+  href: 'https://forms.gle/85VVtDg6hEgjxaZu9',
+};
+
 export const nav = [
   { label: 'Alva', href: '#alva' },
   { label: 'Mirada', href: '#mirada' },
@@ -66,6 +71,8 @@ export const experience = {
 
 export const mirada = {
   heading: 'Nuestra mirada',
+  purposeLabel: 'Nuestro propósito',
+  purpose: 'Acelerar los cambios culturales que las personas, las organizaciones y el planeta necesitan.',
   intro: 'En todo lo que hacemos integramos estas tres dimensiones:',
   items: [
     {

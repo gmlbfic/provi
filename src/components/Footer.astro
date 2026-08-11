@@ -1,13 +1,38 @@
 ---
-import { nav, siteMeta } from '../data/site';
+import { Image } from 'astro:assets';
+import { nav, siteMeta, socials } from '../data/site';
 import alvaIconWhite from '../assets/logos/alva-icon-white.png';
 
 const year = new Date().getFullYear();
+
+const icons: Record<(typeof socials)[number]['icon'], string> = {
+  instagram:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"/></svg>',
+  linkedin:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><line x1="7.5" y1="10" x2="7.5" y2="17"/><circle cx="7.5" cy="6.7" r="0.9" fill="currentColor" stroke="none"/><path d="M12 17v-4.5c0-1.5 1.2-2.5 2.5-2.5s2.5 1 2.5 2.5V17"/></svg>',
+  pin:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 21s7-7.5 7-12a7 7 0 1 0-14 0c0 4.5 7 12 7 12z"/><circle cx="12" cy="9" r="2.3"/></svg>',
+};
 ---
 
 <footer class="border-t border-paper/10 bg-ink py-10 text-paper">
   <div class="container-alva flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-    <img src={alvaIconWhite.src} alt={siteMeta.fullName} class="h-9 w-auto" width="180" height="60" />
+    <div class="flex items-center gap-5">
+      <Image src={alvaIconWhite} alt={siteMeta.fullName} class="h-9 w-auto" />
+      <div class="flex items-center gap-3">
+        {socials.map((social) => (
+          <a
+            href={social.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={social.label}
+            class="text-paper/60 transition-colors hover:text-paper"
+          >
+            <span class="block h-[18px] w-[18px]" set:html={icons[social.icon]} />
+          </a>
+        ))}
+      </div>
+    </div>
 
     <nav class="flex flex-wrap gap-x-6 gap-y-2" aria-label="Navegación de pie de página">
       {nav.map((item) => (

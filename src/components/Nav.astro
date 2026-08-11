@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { nav, siteMeta } from '../data/site';
 import alvaWordmarkBlack from '../assets/logos/alva-wordmark-black.png';
 ---
@@ -6,7 +7,7 @@ import alvaWordmarkBlack from '../assets/logos/alva-wordmark-black.png';
 <header class="fixed inset-x-0 top-0 z-50 border-b border-ink/10 bg-paper">
   <div class="container-alva flex h-16 items-center justify-between md:h-20">
     <a href="#alva" class="flex items-center gap-2" aria-label={`${siteMeta.fullName} — inicio`}>
-      <img src={alvaWordmarkBlack.src} alt="Alva" class="h-6 w-auto md:h-7" width="140" height="60" />
+      <Image src={alvaWordmarkBlack} alt="Alva" class="h-6 w-auto md:h-7" />
     </a>
 
     <nav class="hidden items-center gap-7 lg:flex" aria-label="Navegación principal">

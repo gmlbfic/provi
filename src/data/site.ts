@@ -15,6 +15,12 @@ export const siteMeta = {
   countryCode: 'UY',
 };
 
+export const socials = [
+  { label: 'Instagram', href: 'https://www.instagram.com/alvacreativehouse/', icon: 'instagram' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/alva-creative-house/', icon: 'linkedin' },
+  { label: 'Cómo llegar', href: 'https://maps.app.goo.gl/XViATwjrgytNvF6V6', icon: 'pin' },
+] as const;
+
 export const nav = [
   { label: 'Alva', href: '#alva' },
   { label: 'Mirada', href: '#mirada' },

@@ -1,15 +1,16 @@
-/* Space Grotesk — display / nav / UI */
-@import '@fontsource/space-grotesk/400.css';
-@import '@fontsource/space-grotesk/500.css';
-@import '@fontsource/space-grotesk/600.css';
-@import '@fontsource/space-grotesk/700.css';
+/* Onest — body / nav / UI text */
+@import '@fontsource/onest/400.css';
+@import '@fontsource/onest/500.css';
+@import '@fontsource/onest/600.css';
+@import '@fontsource/onest/700.css';
 
-/* Fraunces — editorial serif for accent words */
-@import '@fontsource/fraunces/400.css';
-@import '@fontsource/fraunces/400-italic.css';
-@import '@fontsource/fraunces/500-italic.css';
-@import '@fontsource/fraunces/600.css';
-@import '@fontsource/fraunces/600-italic.css';
+/* Playfair Display — italic headline + decorative titles */
+@import '@fontsource/playfair-display/400-italic.css';
+@import '@fontsource/playfair-display/500-italic.css';
+@import '@fontsource/playfair-display/600-italic.css';
+@import '@fontsource/playfair-display/700-italic.css';
+@import '@fontsource/playfair-display/700.css';
+@import '@fontsource/playfair-display/900.css';
 
 @tailwind base;
 @tailwind components;
@@ -30,7 +31,6 @@
 
   body {
     @apply bg-paper text-ink font-display antialiased;
-    font-feature-settings: 'ss01' 1;
   }
 
   ::selection {
@@ -80,7 +80,7 @@
   }
 
   .btn-hablemos {
-    @apply inline-flex items-center gap-2 border border-current px-5 py-2.5 font-display text-sm uppercase tracking-[0.15em] transition-colors duration-300 ease-alva hover:bg-gold hover:border-gold hover:text-ink;
+    @apply inline-flex items-center gap-2 rounded-full border border-current px-5 py-2.5 font-display text-sm uppercase tracking-[0.15em] transition-colors duration-300 ease-alva hover:bg-gold hover:border-gold hover:text-ink;
   }
 
   /*

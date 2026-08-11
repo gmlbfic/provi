@@ -13,8 +13,8 @@ export default {
         },
       },
       fontFamily: {
-        display: ['"Space Grotesk"', 'sans-serif'],
-        serif: ['"Fraunces"', 'serif'],
+        display: ['"Onest"', 'sans-serif'],
+        serif: ['"Playfair Display"', 'serif'],
       },
       fontSize: {
         'clamp-hero': 'clamp(2.75rem, 9vw, 9rem)',

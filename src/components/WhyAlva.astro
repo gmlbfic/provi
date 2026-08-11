@@ -6,9 +6,9 @@ import { whyAlva } from '../data/site';
   <div class="container-alva">
     <p class="fade-up eyebrow mb-14 md:mb-20">{whyAlva.heading}</p>
 
-    <div class="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8">
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-0 md:divide-x md:divide-ink/10">
       {whyAlva.items.map((item, i) => (
-        <div class="fade-up">
+        <div class="fade-up md:px-8 md:first:pl-0 md:last:pr-0">
           <span class="font-serif text-lg italic text-gold">0{i + 1}</span>
           <h3 class="mt-4 font-display text-2xl font-medium leading-tight tracking-tightest md:text-3xl">
             {item.name}

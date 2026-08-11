@@ -170,7 +170,6 @@ export const projectsSection = {
   heading: 'Experiencia y proyectos',
   intro:
     'Un espacio en construcción para mostrar los casos de Alva: campañas de comunicación, sensibilización y cambio cultural con instituciones públicas y empresas privadas.',
-  placeholderCount: 6,
 };
 
 export const belongsSection = {

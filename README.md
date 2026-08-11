@@ -40,7 +40,8 @@ src/
     team.ts       Equipo: nombre, cargo, experiencia y foto
     clients.ts    Selección de logos de clientes (ver abajo)
     belongs.ts    Organizaciones y redes de las que Alva forma parte
-  assets/         Imágenes fuente (logos, fotos de equipo, logos de clientes)
+    projects.ts   Casos de éxito (ver abajo)
+  assets/         Imágenes fuente (logos, fotos de equipo, logos de clientes, casos)
   layouts/        Layout base con metadatos SEO / Open Graph
   pages/          index.astro (única página del sitio)
   styles/         global.css (tokens de color, tipografía, utilidades)
@@ -70,11 +71,48 @@ Mismo mecanismo, sin límite de 10 (la sección es intencionalmente chica).
 
 ### Equipo (`src/data/team.ts`)
 
-Nombre, cargo, experiencia y foto de cada integrante, tal como figuran en el brochure institucional. El orden del array es el orden de aparición.
+Cada integrante es un objeto con nombre, prefijo (Mag./Lic.), cargo, experiencia y foto:
 
-### Proyectos / casos
+```ts
+{
+  name: 'Fernanda Ariceta',
+  prefix: 'Mag.',
+  role: 'Dirección general y Dirección de Estrategia',
+  experience: 'Más de 23 años de experiencia',
+  photo: fernandaAriceta, // import de src/assets/team/fernanda-ariceta.jpeg
+},
+```
 
-La sección "Experiencia y proyectos" (`src/components/Projects.astro`) todavía no tiene casos reales cargados: el brief no incluyó información completa de proyectos, así que se dejaron **placeholders identificados como tales** ("Caso en preparación"), sin inventar clientes, resultados ni usar imágenes de stock. Está preparada para 6–8 casos futuros; cuando haya material, se puede convertir el array de placeholders en un `src/data/projects.ts` con imagen, categoría, cliente y descripción por caso, siguiendo el mismo patrón que `clients.ts`.
+Para editar a alguien que ya está: cambiá el texto directamente. Para sumar o reemplazar a alguien:
+
+1. Poné la foto (retrato, funciona mejor en blanco y negro o neutra) en `src/assets/team/`.
+2. Arriba del archivo, agregá el `import` de esa foto (mismo patrón que las que ya están).
+3. Agregá o editá el objeto correspondiente en el array `teamMembers`, usando esa foto en `photo`.
+4. Para sacar a alguien, borrá su objeto del array.
+
+El orden del array es el orden de aparición en la web.
+
+### Casos de éxito (`src/data/projects.ts`)
+
+La sección "Experiencia y proyectos" tiene 6 espacios. Mientras un caso tenga `active: false` se muestra como placeholder ("Caso en preparación"), nunca contenido inventado. Para cargar un caso real:
+
+1. Poné la imagen en `src/assets/projects/` con el mismo nombre que el `slug` del caso (por ejemplo, slug `campana-mides` → `src/assets/projects/campana-mides.jpg`; también sirven `.png` o `.webp`).
+2. Completá `category`, `name`, `client`, `description` y, si corresponde, `link` (URL a un caso ampliado; si no hay, se deja sin link y la tarjeta no es clickeable).
+3. Cambiá `active` a `true`.
+
+```ts
+{
+  slug: 'campana-mides',
+  active: true,
+  category: 'Campaña de sensibilización',
+  name: 'Nombre del caso',
+  client: 'MIDES',
+  description: 'Una línea breve sobre el caso.',
+  link: 'https://...', // opcional
+},
+```
+
+No hace falta tocar `src/components/Projects.astro` para nada de esto. Se puede reordenar el array o agregar más de 6 objetos si en algún momento hacen falta más casos.
 
 ## Contenido e imágenes: origen
 
@@ -84,10 +122,11 @@ Las imágenes (logo, fotos del equipo, logos de clientes, imagen de reconocimien
 
 ## Sistema visual
 
-- Colores: negro `#0A0A0A`, blanco `#FFFFFF`, dorado `#C6A15B` como único acento. Sin fondos crema/beige.
-- Tipografías: Space Grotesk (display/nav) y Fraunces (serif editorial para palabras destacadas), auto-hospedadas vía `@fontsource` — no se usa Inter.
+- Base: negro `#0A0A0A` y blanco `#FFFFFF`. Sin fondos crema/beige.
+- Acento por sección (definidos en `tailwind.config.mjs`): dorado `#C6A15B` (base/contacto/equipo/clientes), rojo `#DE4A2A` (hero/experiencia), rosa `#E17BAE` (mirada), violeta `#6C4CE0` (por qué Alva), verde `#3FAE55` (servicios).
+- Tipografías: Onest (textos, nav, UI) y Playfair Display itálica (headline y títulos decorativos), auto-hospedadas vía `@fontsource` — no se usa Inter.
 - Animaciones: apariciones suaves al hacer scroll (`prefers-reduced-motion` respetado), sin parallax ni autoplay.
 
 ## SEO
 
-Metadatos, Open Graph/Twitter Card, `sitemap-index.xml` (generado en el build con `@astrojs/sitemap`), `robots.txt` y favicon incluidos.
+Metadatos, Open Graph/Twitter Card, datos estructurados `Organization` (JSON-LD) con la ubicación (Montevideo, Uruguay), meta tags de geolocalización, `sitemap-index.xml` (generado en el build con `@astrojs/sitemap`), `robots.txt` y favicon incluidos.

@@ -1,6 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { projectsSection } from '../data/site';
-const placeholders = Array.from({ length: projectsSection.placeholderCount });
+import { projects, getProjectImage } from '../data/projects';
 ---
 
 <section id="experiencia-proyectos" class="bg-paper py-20 md:py-28">
@@ -13,29 +14,67 @@ const placeholders = Array.from({ length: projectsSection.placeholderCount });
     </div>
 
     <div class="grid grid-cols-1 gap-px bg-ink/10 sm:grid-cols-2 lg:grid-cols-3">
-      {placeholders.map((_, i) => (
-        <article class="fade-up group relative flex aspect-[4/5] flex-col justify-between bg-paper p-6 transition-colors duration-500 ease-alva hover:bg-ink/[0.03] sm:p-7">
-          <div
-            class="absolute inset-6 sm:inset-7 -z-10 opacity-[0.06]"
-            style="background-image: repeating-linear-gradient(135deg, currentColor 0, currentColor 1px, transparent 1px, transparent 14px);"
-            aria-hidden="true"
-          ></div>
-
-          <div class="flex items-start justify-between">
-            <span class="font-serif text-sm italic text-gold">0{i + 1}</span>
-            <span class="font-display text-[11px] uppercase tracking-[0.16em] text-ink/40">Próximamente</span>
-          </div>
-
-          <div>
-            <p class="font-display text-lg font-medium leading-snug text-ink/50 md:text-xl">
-              Caso en preparación
-            </p>
-            <p class="mt-2 font-display text-xs uppercase tracking-[0.14em] text-ink/35">
-              Categoría — · Cliente —
-            </p>
-          </div>
-        </article>
-      ))}
+      {projects.map((project, i) => {
+        const image = project.active ? getProjectImage(project.slug) : undefined;
+        const CardTag = project.active && project.link ? 'a' : 'article';
+        return (
+          <CardTag
+            href={project.active && project.link ? project.link : undefined}
+            class="fade-up group relative flex aspect-[4/5] flex-col justify-between overflow-hidden bg-paper p-6 transition-colors duration-500 ease-alva hover:bg-ink/[0.03] sm:p-7"
+          >
+            {project.active ? (
+              <>
+                {image && (
+                  <Image
+                    src={image}
+                    alt={`${project.name} — ${project.client}`}
+                    width={640}
+                    height={800}
+                    loading="lazy"
+                    class="absolute inset-0 -z-10 h-full w-full object-cover grayscale transition-transform duration-700 ease-alva group-hover:scale-105"
+                  />
+                )}
+                {image && <div class="absolute inset-0 -z-10 bg-ink/45" aria-hidden="true" />}
+                <div class="flex items-start justify-between">
+                  <span class={`font-serif text-sm italic text-gold ${image ? 'text-paper' : ''}`}>0{i + 1}</span>
+                  <span class={`font-display text-[11px] uppercase tracking-[0.16em] ${image ? 'text-paper/70' : 'text-ink/40'}`}>
+                    {project.category}
+                  </span>
+                </div>
+                <div>
+                  <p class={`font-display text-lg font-medium leading-snug md:text-xl ${image ? 'text-paper' : 'text-ink'}`}>
+                    {project.name}
+                  </p>
+                  <p class={`mt-2 font-display text-xs uppercase tracking-[0.14em] ${image ? 'text-paper/70' : 'text-ink/45'}`}>
+                    {project.client}
+                  </p>
+                  {project.description && (
+                    <p class={`mt-2 font-display text-sm leading-snug ${image ? 'text-paper/80' : 'text-ink/60'}`}>
+                      {project.description}
+                    </p>
+                  )}
+                </div>
+              </>
+            ) : (
+              <>
+                <div
+                  class="absolute inset-6 sm:inset-7 -z-10 opacity-[0.06]"
+                  style="background-image: repeating-linear-gradient(135deg, currentColor 0, currentColor 1px, transparent 1px, transparent 14px);"
+                  aria-hidden="true"
+                />
+                <div class="flex items-start justify-between">
+                  <span class="font-serif text-sm italic text-gold">0{i + 1}</span>
+                  <span class="font-display text-[11px] uppercase tracking-[0.16em] text-ink/40">Próximamente</span>
+                </div>
+                <div>
+                  <p class="font-display text-lg font-medium leading-snug text-ink/50 md:text-xl">Caso en preparación</p>
+                  <p class="mt-2 font-display text-xs uppercase tracking-[0.14em] text-ink/35">Categoría — · Cliente —</p>
+                </div>
+              </>
+            )}
+          </CardTag>
+        );
+      })}
     </div>
   </div>
 </section>

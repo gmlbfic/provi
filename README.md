@@ -114,6 +114,14 @@ La sección "Experiencia y proyectos" tiene 6 espacios. Mientras un caso tenga `
 
 No hace falta tocar `src/components/Projects.astro` para nada de esto. Se puede reordenar el array o agregar más de 6 objetos si en algún momento hacen falta más casos.
 
+### Reconocimientos (`src/assets/awards/rotation/`)
+
+La imagen de la sección "Reconocimientos" se arma sola a partir de los archivos que haya en esa carpeta — no hay ningún array que editar:
+
+- **Un solo archivo** → se muestra fija, sin animación.
+- **Dos o más archivos** → rotan solas con un fundido lento (cada ~4,5s), respetando "reducir movimiento" del sistema operativo.
+
+El nombre del archivo define el orden (`01-...`, `02-...`, etc.). Para agregar una imagen nueva, soltala ahí con ese formato de nombre; para sacar una, borrá el archivo. Nada de esto toca `src/components/Awards.astro`.
 ## Contenido e imágenes: origen
 
 Todo el texto y las afirmaciones del sitio provienen del brochure institucional de Alva y del brief entregado por el cliente; no se agregó información no confirmada (por eso el footer solo incluye el email de contacto, sin teléfono, dirección ni redes sociales, ya que no figuraban en el material recibido).

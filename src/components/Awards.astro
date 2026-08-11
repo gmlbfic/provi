@@ -1,7 +1,19 @@
 ---
 import { Image } from 'astro:assets';
 import { awards } from '../data/site';
-import effieGold from '../assets/awards/effie-gold.png';
+
+// Una o varias imágenes de reconocimientos. Si hay una sola, se muestra fija.
+// Si hay más de una, rotan con un fundido lento. Para sumar/sacar imágenes,
+// solo hace falta agregar o quitar archivos en src/assets/awards/rotation/
+// (el nombre del archivo define el orden: 01-..., 02-..., etc.).
+const images = Object.entries(
+  import.meta.glob<{ default: ImageMetadata }>(
+    '../assets/awards/rotation/*.{png,jpg,jpeg,webp}',
+    { eager: true }
+  )
+)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([, mod]) => mod.default);
 ---
 
 <section id="reconocimientos" class="border-b border-paper/10 bg-ink py-20 text-paper md:py-28">
@@ -15,17 +27,38 @@ import effieGold from '../assets/awards/effie-gold.png';
       </div>
 
       <div class="fade-up md:col-span-7">
-        <div class="flex aspect-[16/10] items-center justify-center border border-paper/10 bg-paper/[0.03] p-10">
-          <Image
-            src={effieGold}
-            alt="Estatuilla de reconocimiento obtenida por Alva"
-            width={520}
-            height={520}
-            loading="lazy"
-            class="h-full w-auto max-w-full object-contain drop-shadow-[0_0_40px_rgba(198,161,91,0.15)]"
-          />
+        <div class="award-rotator relative flex aspect-[16/10] items-center justify-center overflow-hidden border border-paper/10 bg-paper/[0.03]">
+          {images.map((image, i) => (
+            <Image
+              src={image}
+              alt="Reconocimiento obtenido por Alva"
+              width={520}
+              height={520}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              class="award-slide absolute inset-0 h-full w-full object-contain p-10 drop-shadow-[0_0_40px_rgba(198,161,91,0.15)] transition-opacity duration-1000 ease-alva"
+              style={`opacity: ${i === 0 ? 1 : 0}`}
+            />
+          ))}
         </div>
       </div>
     </div>
   </div>
 </section>
+
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion) {
+    document.querySelectorAll<HTMLElement>('.award-rotator').forEach((rotator) => {
+      const slides = Array.from(rotator.querySelectorAll<HTMLElement>('.award-slide'));
+      if (slides.length < 2) return;
+      let current = 0;
+      setInterval(() => {
+        const next = (current + 1) % slides.length;
+        slides[current].style.opacity = '0';
+        slides[next].style.opacity = '1';
+        current = next;
+      }, 4500);
+    });
+  }
+</script>
